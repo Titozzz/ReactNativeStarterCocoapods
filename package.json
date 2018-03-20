@@ -1,0 +1,20 @@
+{
+  "name": "lol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "react": "16.2.0",
+    "react-native": "0.53.0",
+    "react-native-fcm": "^14.1.1"
+  },
+  "scripts": {
+    "fix-yoga": "cp yoga.podspec ./node_modules/react-native/ReactCommon/yoga/",
+    "fix-local-cli-fixture": "rm -f ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
+    "fix-rcttext": "sed -i'' -e 's/Libraries\\/Text\\/\\*.{h,m}/Libraries\\/Text\\/**\\/*.{h,m}/' ./node_modules/react-native/React.podspec",
+    "fix-fishhook": "sed -i'' -e 's/#import <fishhook\\/fishhook.h>/#import <React\\/fishhook.h>/' ./node_modules/react-native/Libraries/WebSocket/RCTReconnectingWebSocket.m",
+    "fix-react-native-animation": "sed -i'' -e 's/#import <RCTAnimation\\/RCTValueAnimatedNode.h>/#import \"RCTValueAnimatedNode.h\"/' ./node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h",
+    "fix-react-native-fcm": "sed -i'' -e 's/@import Firebase;/@import FirebaseCore;@import FirebaseMessaging;@import FirebaseInstanceID;/' ./node_modules/react-native-fcm/ios/RNFIRMessaging.h",
+    "postinstall": "yarn fix-react-native-animation && yarn fix-rcttext && yarn fix-local-cli-fixture && yarn fix-yoga && yarn fix-fishhook"
+  }
+}
